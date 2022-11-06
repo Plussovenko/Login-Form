@@ -1,25 +1,56 @@
 <div class="container">
   <section class="registration">
     <h1 class="registration__title">Create a new account</h1>
-    <form action="" class="registration__form">
+    <form class="registration__form">
       <div class="form__group">
         <label for="eMail" class="form__label">Email</label>
         <input type="email" id="eMail" class="form__input" />
+        <!-- <p
+          *ngIf="
+            this.regForm.get('email')?.invalid &&
+            this.regForm.get('email')?.touched
+          "
+        >
+          <small class="danger">Email is invalid</small>
+        </p> -->
       </div>
+
       <div class="form__group">
         <label for="telephone" class="form__label">Phone number</label>
         <input type="tel" id="telephone" class="form__input" />
+        <!-- <p
+          *ngIf="
+            this.regForm.get('phone')?.invalid &&
+            this.regForm.get('phone')?.touched
+          "
+        >
+          <small class="danger">Phone is invalid</small>
+        </p> -->
       </div>
+
       <div class="form__group">
         <label for="login" class="form__label">New password</label>
         <input type="email" id="login" class="form__input" />
+        <!-- <p
+          *ngIf="
+            this.regForm.get('newPassword')?.invalid &&
+            this.regForm.get('newPassword')?.touched
+          "
+        >
+          <small class="danger"
+            >Password is invalid (min.length = 8, max.length = 20)</small
+          >
+        </p> -->
       </div>
+
       <div class="form__group-radio">
         <div>
           <label for="radioInd" class="form__label">Individual</label>
           <input
+            [(ngModel)]="answer"
             type="radio"
             id="radioInd"
+            value="individual"
             class="form__input-radio"
             name="userType"
           />
@@ -27,13 +58,74 @@
         <div>
           <label for="radioOrg" class="form__label">Organization</label>
           <input
+            [(ngModel)]="answer"
             type="radio"
             id="radioOrg"
+            value="organization"
             class="form__input-radio"
             name="userType"
           />
         </div>
       </div>
+      <!-- Выбор формы после радио кнопки -->
+      <form [ngSwitch]="answer">
+        <div *ngSwitchCase="'individual'">
+          <div>
+            <label for="date" class="form__label optional">Date</label>
+            <input type="date" id="date" />
+            <!-- <p
+              *ngIf="
+                this.regForm.get('personDate')?.invalid &&
+                this.regForm.get('personDate')?.touched
+              "
+            >
+              <small class="danger">Date is invalid</small>
+            </p> -->
+          </div>
+
+          <div>
+            <label for="textarea" class="form__label optional"
+              >Some Information
+            </label>
+            <textarea name="textField" id="textarea"></textarea>
+          </div>
+        </div>
+        <div *ngSwitchCase="'organization'">
+          <div>
+            <label for="select" class="form__label optional">
+              Type of organization
+            </label>
+            <select [(ngModel)]="selected">
+              <option *ngFor="let type of typeOfOrganization" [value]="type">
+                {{ type }}
+              </option>
+            </select>
+            <!-- <p
+              *ngIf="
+                this.regForm.get('type')?.invalid &&
+                this.regForm.get('type')?.touched
+              "
+            >
+              <small class="danger">Choose type of your organization</small>
+            </p> -->
+          </div>
+
+          <div>
+            <label for="empNum" class="form__label optional"
+              >Number of employees</label
+            >
+            <input type="text" id="empNum" />
+            <!-- <p
+              *ngIf="
+                this.regForm.get('number')?.invalid &&
+                this.regForm.get('number')?.touched
+              "
+            >
+              <small class="danger">Choose number of your employees</small>
+            </p> -->
+          </div>
+        </div>
+      </form>
       <div>
         <button class="form__button">Sign up</button>
       </div>

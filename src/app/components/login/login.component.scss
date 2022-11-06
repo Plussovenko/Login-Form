@@ -83,6 +83,9 @@ body {
       &:hover {
         background-color: rgb(126, 37, 37);
       }
+      &:disabled {
+        background-color: rgb(126, 37, 37);
+      }
     }
     &__question {
       text-align: center;
@@ -91,4 +94,7 @@ body {
       color: chartreuse;
     }
   }
+}
+.danger {
+  color: rgb(255, 0, 0);
 }

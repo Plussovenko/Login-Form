@@ -2,16 +2,50 @@
   <section class="login-field">
     <h1 class="login-field__title">Login</h1>
     <p class="login-field__text">Please enter your login and password!</p>
-    <form action="" class="login-field__form">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="submitLogin()"
+      class="login-field__form"
+    >
       <div class="form__group">
         <label for="login" class="form__label">Login</label>
-        <input type="email" id="login" class="form__input" />
+        <input
+          formControlName="email"
+          type="email"
+          id="login"
+          class="form__input"
+        />
+        <p
+          *ngIf="
+            this.loginForm.get('email')?.invalid &&
+            this.loginForm.get('email')?.touched
+          "
+        >
+          <small class="danger">Email is invalid</small>
+        </p>
       </div>
       <div class="form__group">
         <label for="password" class="form__label">Password</label>
-        <input type="password" id="password" class="form__input" />
+        <input
+          formControlName="password"
+          type="password"
+          id="password"
+          class="form__input"
+        />
+        <p
+          *ngIf="
+            this.loginForm.get('password')?.invalid &&
+            this.loginForm.get('password')?.touched
+          "
+        >
+          <small class="danger"
+            >Password is invalid (min.length = 8, max.length = 20)
+          </small>
+        </p>
       </div>
-      <button class="form__button">Sign in</button>
+      <button class="form__button" [disabled]="loginForm.invalid">
+        Sign in
+      </button>
     </form>
     <p class="login-field__question">
       Don't have an acc? You can
